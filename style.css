@@ -15,68 +15,82 @@ body {
 }
   
 .container {
-    /* CRITICAL FIX: Position relative for absolute positioning of children */
+    /* CRITICAL FIX: position: relative is essential for absolute children to stay within */
     position: relative; 
     
     /* Ensure the container has enough height for the button to move within */
     min-height: 400px; 
-
+    
     display: flex;
     flex-direction: column;
     text-align: center;
     align-items: center;
     gap: 20px;
     max-width: 500px;
+    width: 90%; /* Use width: 90% for better mobile centering */
     margin: 20px;
-    padding: 20px; /* Added padding to prevent button from touching edges */
+    padding: 20px;
+    padding-bottom: 80px; /* Add extra space at the bottom for the fixed buttons */
 }
   
 .container .tenor-gif-embed {
     max-width: 200px;
 }
   
+/* Styles for index.html, no1.html, no2.html only */
 .container .btn {
-    /* Changed to position absolute so it doesn't reserve space */
-    position: absolute; 
-    bottom: 20px; /* Position it near the bottom */
-    width: 80%; /* Ensure proper alignment for the initial buttons */
+    width: 80%;
     display: flex;
     justify-content: space-around;
     gap: 25px;
+    margin-top: 10px; /* Add margin to keep it below text */
 }
-  
-.btn a {
+
+/* Base style for ALL link buttons */
+.btn a,
+.yes-btn,
+#move-random {
     text-decoration: none;
     color: #111;
     background: #fff;
     padding: 10px 25px;
     border-radius: 66px;
     box-shadow: 0.5rem 1rem 3rem hsl(0, 0%, 0%, 0.3);
-    
-    /* Make buttons grow to take available space */
-    flex-grow: 1; 
     text-align: center;
+    flex-grow: 1; /* Retained for .btn a for index/no1/no2 */
+    display: inline-block;
 }
 
-/* FIX FOR THE "NO" BUTTON (MOVEABLE) */
+/* --- FIXES FOR no3.html ONLY --- */
+
+/* This container holds the YES and NO buttons in no3.html */
+.button-group {
+    /* Positioning absolute lets the buttons move without affecting text above */
+    position: absolute;
+    bottom: 20px; /* Position it near the bottom of .container */
+    width: 90%; 
+    max-width: 460px; /* Match container max-width - padding */
+}
+
+/* Style for the YES button on no3.html */
+.yes-btn {
+    position: absolute;
+    /* Center it horizontally with a small offset from the center */
+    left: 20%; 
+    top: 0;
+    width: 40%;
+}
+
+/* Style for the NO button on no3.html (The moveable one) */
 #move-random {
-    /* CRITICAL FIX: Position absolute so JavaScript can move it */
-    position: absolute; 
+    position: absolute; /* CRITICAL: Must be absolute for JS to move it */
     
     /* Add a smooth transition for the movement */
     transition: transform 0.3s ease-out; 
     
-    /* Set initial position to appear near where it was */
-    /* Adjust these values if the button appears in a weird spot initially */
-    top: 300px; 
-    left: 280px; 
+    /* Set an initial position so it appears near the 'Yes' button */
+    right: 20%; 
+    top: 0;
+    width: 40%; 
     z-index: 10; /* Ensure it stays on top */
-}
-
-/* Ensure the 'Yes' button stays in place and looks correct */
-/* Assuming 'Yes' is the first link in .btn */
-.btn a:first-child {
-    position: absolute;
-    bottom: 20px; 
-    left: 50px; /* Adjust this value to position the 'Yes' button */
 }
