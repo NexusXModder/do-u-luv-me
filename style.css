@@ -7,6 +7,8 @@
   
 body {
     width: 100%;
+    /* CRITICAL FIX: Set position relative on body for full-screen absolute positioning */
+    position: relative; 
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -15,12 +17,7 @@ body {
 }
   
 .container {
-    /* CRITICAL: Position relative for absolute children to stay contained */
-    position: relative; 
-    
-    /* Ensure enough height for the button to move */
-    min-height: 400px; 
-    
+    /* REMOVED position: relative to prevent container size limits */
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -30,7 +27,8 @@ body {
     width: 90%; 
     margin: 20px auto;
     padding: 20px; 
-    padding-bottom: 80px; /* Space for the static buttons below */
+    /* Increased padding at the bottom to ensure buttons don't block the main content */
+    padding-bottom: 120px; 
 }
   
 .container .tenor-gif-embed {
@@ -39,10 +37,8 @@ body {
   
 /* Styles for index.html, no1.html, no2.html only */
 .container .btn {
-    position: absolute;
-    bottom: 20px;
-    width: 90%;
-    max-width: 460px;
+    /* This style is now only for the other pages */
+    width: 100%;
     display: flex;
     justify-content: space-around;
     gap: 25px;
@@ -60,37 +56,34 @@ body {
     box-shadow: 0.5rem 1rem 3rem hsl(0, 0%, 0%, 0.3);
     text-align: center;
     flex-grow: 1; 
-    display: inline-block;
+    display: block;
 }
 
 /* --- FIXES FOR no3.html ONLY --- */
 
-/* This container holds the YES and NO buttons in no3.html */
-.button-group {
-    position: absolute;
-    bottom: 20px; 
-    width: 90%; 
-    max-width: 460px; 
-}
-
-/* Style for the YES button on no3.html */
+/* Style for the fixed YES button on no3.html */
 .yes-btn {
-    position: absolute; 
-    left: 20%; 
-    top: 0;
-    width: 40%;
+    /* FIXED: Position relative to the body (full screen) */
+    position: fixed; 
+    bottom: 40px; /* Stay fixed near the bottom */
+    left: 50%;
+    transform: translateX(-100%) translateX(-10px); /* Center and shift left */
+    width: 100px; /* Fixed width */
+    z-index: 20; /* Ensure it stays above other content */
 }
 
 /* Style for the NO button on no3.html (The moveable one) */
 #move-random {
+    /* FIXED: Position relative to the body (full screen) */
     position: absolute; 
     
-    /* CRITICAL FIX: Transition on left/top enables smooth absolute jumps */
+    /* Transition on left/top enables smooth absolute jumps */
     transition: left 0.3s ease-out, top 0.3s ease-out; 
     
-    /* Set an initial position */
-    right: 20%; 
-    top: 0;
-    width: 40%; 
+    /* Set initial position near the 'Yes' button */
+    bottom: 40px; 
+    left: 50%;
+    transform: translateX(0) translateX(10px); /* Center and shift right */
+    width: 100px; /* Fixed width */
     z-index: 10;
 }
