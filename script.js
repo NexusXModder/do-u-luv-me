@@ -7,31 +7,19 @@ function getRandomNumber(min, max) {
 
 // Function to calculate and apply a new random ABSOLUTE position
 function applyRandomPosition() {
-    // 1. Get the button's size (getBoundingClientRect is fine for this)
-    const buttonRect = moveRandomButton.getBoundingClientRect();
-    
-    // 2. Define offset (padding from the edge of the window)
-    const offset = 20; 
-    
-    // 3. Calculate the maximum safe movement range based on the window size.
-    // This is the entire window size minus the button's size and the offset.
-    const maxMoveX = window.innerWidth - buttonRect.width - (2 * offset);
-    // We limit the vertical movement to keep it generally in the lower 70% of the screen
-    // This prevents it from blocking the main text/GIF.
-    const maxMoveY = window.innerHeight * 0.7 - buttonRect.height - (2 * offset); 
-    
-    // 4. Generate new random ABSOLUTE positions (Left and Top).
-    const newLeft = getRandomNumber(offset, maxMoveX);
-    const newTop = getRandomNumber(offset, maxMoveY);
+    // Generate new random positions using percentages (0% to 85% for a wide, safe move)
+    // Using 5% to 85% ensures the button never moves completely off-screen.
+    const newLeft = getRandomNumber(5, 85);
+    const newTop = getRandomNumber(5, 85);
 
-    // 5. CRITICAL FIX: Apply the new position using style.left and style.top.
-    // This forces an absolute jump across the entire screen.
-    moveRandomButton.style.left = newLeft + 'px';
-    moveRandomButton.style.top = newTop + 'px';
+    // CRITICAL FIX: Apply the new position using style.left and style.top (in percentages).
+    // This forces an absolute jump across the entire screen (viewport).
+    moveRandomButton.style.left = newLeft + '%';
+    moveRandomButton.style.top = newTop + '%';
     
-    // 6. Clear conflicting properties
+    // Clear conflicting CSS properties
     moveRandomButton.style.right = 'auto'; 
-    moveRandomButton.style.bottom = 'auto'; // Clear bottom property
+    moveRandomButton.style.bottom = 'auto'; 
     moveRandomButton.style.transform = 'none'; 
 }
 

@@ -17,7 +17,7 @@ body {
 }
   
 .container {
-    /* REMOVED position: relative to prevent container size limits */
+    /* Main content container positioning */
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -27,7 +27,7 @@ body {
     width: 90%; 
     margin: 20px auto;
     padding: 20px; 
-    /* Increased padding at the bottom to ensure buttons don't block the main content */
+    /* Ensure space is left for the buttons at the bottom */
     padding-bottom: 120px; 
 }
   
@@ -37,7 +37,6 @@ body {
   
 /* Styles for index.html, no1.html, no2.html only */
 .container .btn {
-    /* This style is now only for the other pages */
     width: 100%;
     display: flex;
     justify-content: space-around;
@@ -57,33 +56,32 @@ body {
     text-align: center;
     flex-grow: 1; 
     display: block;
+    width: 100px; /* Fixed width for consistent button size */
 }
 
 /* --- FIXES FOR no3.html ONLY --- */
 
 /* Style for the fixed YES button on no3.html */
 .yes-btn {
-    /* FIXED: Position relative to the body (full screen) */
+    /* Position fixed relative to the viewport (always visible) */
     position: fixed; 
-    bottom: 40px; /* Stay fixed near the bottom */
+    bottom: 40px; 
     left: 50%;
-    transform: translateX(-100%) translateX(-10px); /* Center and shift left */
-    width: 100px; /* Fixed width */
-    z-index: 20; /* Ensure it stays above other content */
+    transform: translateX(-100%) translateX(-10px); 
+    z-index: 20; 
 }
 
 /* Style for the NO button on no3.html (The moveable one) */
 #move-random {
-    /* FIXED: Position relative to the body (full screen) */
+    /* Position absolute relative to the body for full movement range */
     position: absolute; 
     
-    /* Transition on left/top enables smooth absolute jumps */
+    /* CRITICAL: Transition on left/top is needed for smooth percentage movement */
     transition: left 0.3s ease-out, top 0.3s ease-out; 
     
     /* Set initial position near the 'Yes' button */
     bottom: 40px; 
     left: 50%;
-    transform: translateX(0) translateX(10px); /* Center and shift right */
-    width: 100px; /* Fixed width */
+    transform: translateX(0) translateX(10px); 
     z-index: 10;
 }
