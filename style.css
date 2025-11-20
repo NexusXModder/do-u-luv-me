@@ -15,7 +15,7 @@ body {
 }
   
 .container {
-    /* CRITICAL: Must be relative for absolute children to stay contained */
+    /* CRITICAL: Position relative for absolute children to stay contained */
     position: relative; 
     
     /* Ensure enough height for the button to move */
@@ -29,8 +29,8 @@ body {
     max-width: 500px;
     width: 90%; 
     margin: 20px auto;
-    padding: 20px;
-    padding-bottom: 80px; 
+    padding: 20px; 
+    padding-bottom: 80px; /* Space for the static buttons below */
 }
   
 .container .tenor-gif-embed {
@@ -67,7 +67,6 @@ body {
 
 /* This container holds the YES and NO buttons in no3.html */
 .button-group {
-    /* Set a position so buttons are relative to this group */
     position: absolute;
     bottom: 20px; 
     width: 90%; 
@@ -76,7 +75,7 @@ body {
 
 /* Style for the YES button on no3.html */
 .yes-btn {
-    position: absolute; /* CRITICAL: Must be absolute to allow No button to move freely */
+    position: absolute; 
     left: 20%; 
     top: 0;
     width: 40%;
@@ -84,12 +83,12 @@ body {
 
 /* Style for the NO button on no3.html (The moveable one) */
 #move-random {
-    position: absolute; /* CRITICAL: Must be absolute for JS to control left/top */
+    position: absolute; 
     
-    /* FIX: Transition on left/top ensures a smooth jump to the new absolute position */
+    /* CRITICAL FIX: Transition on left/top enables smooth absolute jumps */
     transition: left 0.3s ease-out, top 0.3s ease-out; 
     
-    /* Set an initial position that will be immediately overridden by JS */
+    /* Set an initial position */
     right: 20%; 
     top: 0;
     width: 40%; 

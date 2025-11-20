@@ -15,7 +15,8 @@ function applyRandomPosition() {
     // 2. Define padding/offset from the edge of the container
     const offset = 20; // Matches the 20px padding in .container
     
-    // 3. Calculate the maximum movement range inside the container.
+    // 3. Calculate the maximum safe movement range inside the container.
+    // Max movement is container size minus button size and padding offset.
     const maxMoveX = containerRect.width - buttonRect.width - (2 * offset);
     const maxMoveY = containerRect.height - buttonRect.height - (2 * offset);
     
@@ -28,13 +29,13 @@ function applyRandomPosition() {
     moveRandomButton.style.left = newLeft + 'px';
     moveRandomButton.style.top = newTop + 'px';
     
-    // 6. Clear conflicting properties
-    moveRandomButton.style.right = 'auto'; // Clear right property
-    moveRandomButton.style.transform = 'none'; // Clear transform property
+    // 6. Clear conflicting properties (like the initial 'right' and 'transform')
+    moveRandomButton.style.right = 'auto'; 
+    moveRandomButton.style.transform = 'none'; 
 }
 
 // Attach the event listener to the "No" button
 moveRandomButton.addEventListener('mouseenter', applyRandomPosition);
 
-// Set an initial random position when the page loads
+// Set an initial random position when the page loads to prevent the initial "glitch"
 window.addEventListener('load', applyRandomPosition);
